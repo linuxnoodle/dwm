@@ -60,7 +60,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *shutcmd[] = { "loginctl", "poweroff", NULL };
 static const char *rebootcmd[] = { "loginctl", "reboot", NULL };
-static const char *firefox[] = { "firefox", NULL };
+static const char *qute[] = { "qutebrowser", NULL };
 
 #include "shiftview.c"
 static Key keys[] = {
@@ -69,7 +69,7 @@ static Key keys[] = {
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = shutcmd } },
     { MODKEY|ShiftMask,             XK_r,      spawn,          {.v = rebootcmd } },
-    { MODKEY,                       XK_f,      spawn,          {.v = firefox } },
+    { MODKEY,                       XK_f,      spawn,          {.v = qute } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
