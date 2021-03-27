@@ -28,7 +28,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-    { "Firefox",  NULL,       NULL,       NULL,       0,           -1 }
+    { "no",  NULL,       NULL,       0,       0,           -1 }
 };
 
 /* layout(s) */
@@ -91,8 +91,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
-	{ MODKEY,                       XK_p,      shiftview,      {.i = -1 } },
+	{ MODKEY,                       XK_v,      shiftview,      {.i = +1 } },
+	{ MODKEY,                       XK_c,      shiftview,      {.i = -1 } },
     TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
