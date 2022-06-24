@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
@@ -57,44 +58,58 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 static const char *shutcmd[] = { "loginctl", "poweroff", NULL };
 static const char *rebootcmd[] = { "loginctl", "reboot", NULL };
-static const char *firefox[] = { "firefox", NULL };
+static const char *librewolf[] = { "librewolf", NULL };
 static const char *calculator[] = { "qalculate-gtk", NULL};
+static const char *boomer[] = { "boomer", NULL };
+
+static const char *brupcmd[] = { "brightnessctl", "set", "10%+", NULL };
+static const char *brdowncmd[] = { "brightnessctl", "set", "10%-", NULL };
+
+static const char *vlupcmd[] = { "pactl", "set-sink-volume", "0", "+5%", NULL };
+static const char *vldowncmd[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+
+static const char *screenshot[] = { "/home/linuxnoodle/.dwm/screenshot.sh", NULL };
 
 #include "shiftview.c"
 static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_s,      spawn,          {.v = dmenucmd } },
-    { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY|ShiftMask,             XK_q,      spawn,          {.v = shutcmd } },
-    { MODKEY|ShiftMask,             XK_r,      spawn,          {.v = rebootcmd } },
-    { MODKEY,                       XK_f,      spawn,          {.v = firefox } },
-    { MODKEY,                       XK_h,      spawn,          {.v = calculator } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_y,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_z,      zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ Mod1Mask,                     XK_F4,     killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_v,      shiftview,      {.i = +1 } },
-	{ MODKEY,                       XK_c,      shiftview,      {.i = -1 } },
+	/* modifier                     key        function         argument */
+	{ MODKEY,                       XK_s,      spawn,           {.v = dmenucmd } },
+    { MODKEY,                       XK_Return, spawn,           {.v = termcmd } },
+    { MODKEY|ShiftMask,             XK_q,      spawn,           {.v = shutcmd } },
+    { MODKEY|ShiftMask,             XK_r,      spawn,           {.v = rebootcmd } },
+    { MODKEY,                       XK_f,      spawn,           {.v = librewolf } },
+    { MODKEY,                       XK_h,      spawn,           {.v = calculator } },
+	{ MODKEY,                       XK_b,      togglebar,       {0} },
+	{ MODKEY,                       XK_j,      focusstack,      {.i = +1 } },
+	{ MODKEY,                       XK_k,      focusstack,      {.i = -1 } },
+	{ MODKEY,                       XK_i,      incnmaster,      {.i = +1 } },
+	{ MODKEY,                       XK_d,      incnmaster,      {.i = -1 } },
+	{ MODKEY,                       XK_h,      setmfact,        {.f = -0.05} },
+	{ MODKEY,                       XK_y,      setmfact,        {.f = +0.05} },
+	{ MODKEY,                       XK_z,      spawn,           {.v = boomer} },
+	{ MODKEY,                       XK_Tab,    view,            {0} },
+	{ Mod1Mask,                     XK_F4,     killclient,      {0} },
+	{ MODKEY,                       XK_t,      setlayout,       {.v = &layouts[0]} },
+	{ MODKEY,                       XK_o,      setlayout,       {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,       {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,  setlayout,       {0} },
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating,  {0} },
+	{ MODKEY,                       XK_0,      view,            {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,             {.ui = ~0 } },
+	{ MODKEY,                       XK_comma,  focusmon,        {.i = -1 } },
+	{ MODKEY,                       XK_period, focusmon,        {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,  tagmon,          {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period, tagmon,          {.i = +1 } },
+	{ MODKEY,                       XK_v,      shiftview,       {.i = +1 } },
+	{ MODKEY,                       XK_c,      shiftview,       {.i = -1 } },
+    { 0, XF86XK_MonBrightnessUp,    spawn,                      {.v = brupcmd} },
+    { 0, XF86XK_MonBrightnessDown,  spawn,                      {.v = brdowncmd} },
+    { 0, XF86XK_AudioRaiseVolume,   spawn,                      {.v = vlupcmd} },
+    { 0, XF86XK_AudioLowerVolume,   spawn,                      {.v = vldowncmd} },
+    { 0, 0xff61,                    spawn,                      {.v = screenshot} },
     TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
