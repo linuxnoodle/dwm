@@ -57,19 +57,19 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+//static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "rofi", "-theme",".local/share/rofi/themes/material" ,"-show" ,"drun" ,"-icon-theme", "\"Papirus\"", "-show-icons", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char *shutcmd[] = { "loginctl", "poweroff", NULL };
-static const char *rebootcmd[] = { "loginctl", "reboot", NULL };
+static const char *powercmd[] = { "rofi", "-theme", ".local/share/rofi/themes/material", "-show" , "power-menu", "-modi", "power-menu:rofi-power-menu" ,"--symbols", NULL };
 static const char *librewolf[] = { "librewolf", NULL };
 static const char *calculator[] = { "qalculate-gtk", NULL};
 static const char *boomer[] = { "boomer", NULL };
 
-static const char *brupcmd[] = { "brightnessctl", "set", "10%+", NULL };
-static const char *brdowncmd[] = { "brightnessctl", "set", "10%-", NULL };
+static const char *brupcmd[] = { "/home/linuxnoodle/.config/brightness/brup.sh", NULL };
+static const char *brdowncmd[] = { "/home/linuxnoodle/.config/brightness/brdown.sh", NULL };
 
-static const char *vlupcmd[] = { "pactl", "set-sink-volume", "0", "+5%", NULL };
-static const char *vldowncmd[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *vlupcmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *vldowncmd[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 
 static const char *screenshot[] = { "/home/linuxnoodle/.dwm/screenshot.sh", NULL };
 
@@ -78,8 +78,9 @@ static Key keys[] = {
 	/* modifier                     key        function         argument */
 	{ MODKEY,                       XK_s,      spawn,           {.v = dmenucmd } },
     { MODKEY,                       XK_Return, spawn,           {.v = termcmd } },
-    { MODKEY|ShiftMask,             XK_q,      spawn,           {.v = shutcmd } },
-    { MODKEY|ShiftMask,             XK_r,      spawn,           {.v = rebootcmd } },
+//    { MODKEY|ShiftMask,             XK_q,      spawn,           {.v = shutcmd } },
+//    { MODKEY|ShiftMask,             XK_r,      spawn,           {.v = rebootcmd } },
+	{ MODKEY|ShiftMask,             XK_q,      spawn,           {.v = powercmd } },
     { MODKEY,                       XK_f,      spawn,           {.v = librewolf } },
     { MODKEY,                       XK_h,      spawn,           {.v = calculator } },
 	{ MODKEY,                       XK_b,      togglebar,       {0} },
